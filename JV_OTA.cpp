@@ -36,7 +36,7 @@ void JV_OTA::setup() {
   if (WiFi.status() == WL_CONNECTED) {
     showMessage("IP address:", WiFi.localIP().toString());
   } else {
-    Serial.println("Can not connect to WiFi station. Go into AP mode.");
+    showMessage("Can't connect WiFi","Going into AP mode.");
     // Go into software AP mode.
     WiFi.mode(WIFI_AP);
     delay(10);
@@ -75,7 +75,7 @@ void JV_OTA::setup() {
     //JV_OTA::showMessage(line1, line2);
   });
   ArduinoOTA.setHostname((const char *)hostname.c_str());
-  ArduinoOTA.setPassword("flash4me");
+  //ArduinoOTA.setPassword("flash4me");
   ArduinoOTA.begin();
   Serial.println("Wifi OK");
 };

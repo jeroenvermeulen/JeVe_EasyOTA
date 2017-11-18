@@ -10,13 +10,10 @@ JV_OTA OTA( wifi_ssid, wifi_password, wifi_hostname );
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("");
-  Serial.println("Startup");
   OTA.setup();
 }
 
 void loop() {
   OTA.loop();
-  heartBeat();
   delay(100);
 }
