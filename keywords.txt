@@ -1,0 +1,18 @@
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+JV_OTA	KEYWORD1
+THandlerFunction_Message	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+setup	KEYWORD2
+loop	KEYWORD2
+onMessage	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################

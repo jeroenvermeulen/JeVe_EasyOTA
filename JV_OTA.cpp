@@ -4,105 +4,97 @@
  * Inspired on:
  *    http://simplestuffmatters.com/?p=69
  *    https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS/examples/OTA-mDNS-SPIFFS
+ *
+ *  mDNS monitor (OSX):  dns-sd -B _arduino._tcp .
+ *
  */
  
 #include "JV_OTA.h"
 
+//Necesary to make Arduino Software autodetect OTA device
 WiFiServer TelnetServer(8266);
 
-JV_OTA::JV_OTA(char* wifi_ssid, char* wifi_password, char* wifi_hostname) {
-    this->wifi_ssid = wifi_ssid;
-    this->wifi_password = wifi_password;
-    this->wifi_hostname = wifi_hostname;
-    //this->telnetServer = new WifiServer(8266); // https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266WiFi/src/WiFiServer.h
-};
+JV_OTA::JV_OTA() {
+  // Constructor
+}
 
-void JV_OTA::setup() {
-  delay(100);
-  String hostname(this->wifi_hostname);
-  hostname += String(ESP.getChipId(), HEX);
-  delay(500);
-  showMessage("Connecting Wifi:", this->wifi_ssid);
+void JV_OTA::onMessage(THandlerFunction_Message fn) {
+  on_message = fn;
+}
+
+void JV_OTA::setup(char* wifi_ssid, char* wifi_password, char* wifi_hostname) {
+  this->wifi_ssid = wifi_ssid;
+  this->wifi_password = wifi_password;
+  this->wifi_hostname = wifi_hostname;
+  showMessage("", 1); // New line in case of using serial output
+  showMessage("Connecting Wifi:", 1);
+  showMessage(this->wifi_ssid, 2);
   WiFi.hostname(this->wifi_hostname);
   WiFi.begin(this->wifi_ssid, this->wifi_password);
   unsigned long startTime = millis();
-  String line2 = "";
+  String progressDots = "";
   while (WiFi.status() != WL_CONNECTED && millis() - startTime < 10000) {
     delay(500);
-    line2 += ".";
-    showMessage("Connecting Wifi:", line2);
+    progressDots += ".";
+    showMessage(progressDots, 2);
   }
 
   if (WiFi.status() == WL_CONNECTED) {
-    showMessage("IP address:", WiFi.localIP().toString());
+    showMessage("IP Address:", 1);
+    showMessage(WiFi.localIP().toString(), 2);
   } else {
-    showMessage("Can't connect WiFi","Going into AP mode.");
-    // Go into software AP mode.
+    showMessage("Can't connect WiFi", 1);
+    showMessage("Going into AP mode.", 2);
     WiFi.mode(WIFI_AP);
     delay(10);
-    WiFi.softAP(hostname.c_str());
-    String line1 = "AP:" + hostname;
-    showMessage(line1, WiFi.softAPIP().toString());
+    WiFi.softAP(this->wifi_hostname);
+    showMessage("AP: " + String(this->wifi_hostname), 1);
+    showMessage("IP: " + WiFi.softAPIP().toString(), 2);
   }
 
-  Serial.print("Configuring OTA device...");
-  TelnetServer.begin();   //Necesary to make Arduino Software autodetect OTA device
+  TelnetServer.begin();  // Necesary to make Arduino Software autodetect OTA device
 
-  ArduinoOTA.onStart([]() {
-    //JV_OTA::showMessage("OTA starting...");
+  ArduinoOTA.onStart([this]() {
+    showMessage("OTA starting...", 1);
+    showMessage("", 2);  // If display: Clean any previous error
   });
-  ArduinoOTA.onEnd([]() {
-    //JV_OTA::showMessage("OTA finished.", "Rebooting...");
+  ArduinoOTA.onEnd([this]() {
+    showMessage("OTA finished.",1);
+    showMessage("Rebooting...",2);
   });
-  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+  ArduinoOTA.onProgress([this](unsigned int progress, unsigned int total) {
     static unsigned int prevPerc = 100;
     unsigned int perc = (progress / (total / 100));
     unsigned int roundPerc = 5 * (int)(perc / 5);
     if ( roundPerc != prevPerc) {
       prevPerc = roundPerc;
-      String line1 = "OTA upload " + String(roundPerc) + "%";
-      //JV_OTA::showMessage(line1);
+      showMessage("OTA upload " + String(roundPerc) + "%");
     }
   });
-  ArduinoOTA.onError([](ota_error_t error) {
-    String line1 = "Error " + String(error) + ": ";
+  ArduinoOTA.onError([this](ota_error_t error) {
+    showMessage("OTA Error " + String(error) + ":", 1);
     String line2 = "";
     if (error == OTA_AUTH_ERROR)         line2 = "Auth Failed";
     else if (error == OTA_BEGIN_ERROR)   line2 = "Begin Failed";
     else if (error == OTA_CONNECT_ERROR) line2 = "Connect Failed";
     else if (error == OTA_RECEIVE_ERROR) line2 = "Receive Failed";
     else if (error == OTA_END_ERROR)     line2 = "End Failed";
-    //JV_OTA::showMessage(line1, line2);
+    showMessage(line2, 2);
   });
-  ArduinoOTA.setHostname((const char *)hostname.c_str());
-  //ArduinoOTA.setPassword("flash4me");
+  ArduinoOTA.setHostname(this->wifi_hostname);
   ArduinoOTA.begin();
-  Serial.println("Wifi OK");
 };
 
 void JV_OTA::loop() {
   ArduinoOTA.handle();
 }
 
-void JV_OTA::showMessage(char *line1, char *line2 ) {
-  Serial.println(line1);
-  if ("" != line2) {
-    Serial.println(line2);
+void JV_OTA::showMessage(char *message, int line) {
+  if (on_message) {
+    on_message(message, line);
   }
 }
+void JV_OTA::showMessage(String message, int line) {
+  showMessage((char *)message.c_str(), line);
+}
 
-void JV_OTA::showMessage(char * line1) {
-  showMessage( line1, "" );
-}
-void JV_OTA::showMessage(char * line1, String line2) {
-  showMessage( line1, (char *)line2.c_str() );
-}
-void JV_OTA::showMessage(String line1) {
-  showMessage( (char *)line1.c_str() );
-}
-void JV_OTA::showMessage(String line1, char * line2) {
-  showMessage( (char *)line1.c_str(), line2 );
-}
-void JV_OTA::showMessage(String line1, String line2) {
-  showMessage( (char *)line1.c_str(), (char *)line2.c_str() );
-}

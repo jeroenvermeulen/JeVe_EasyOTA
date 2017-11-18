@@ -20,20 +20,20 @@
 class JV_OTA
 {
   public:
+    typedef std::function<void(char *message, int line)> THandlerFunction_Message;
+
+    JV_OTA(void);
+    void setup(char* wifi_ssid, char* wifi_password = "", char* wifi_hostname = "");
+    void loop();
+    void onMessage(THandlerFunction_Message fn);
+
+  private:
     char*  wifi_ssid;
     char*  wifi_password;
     char*  wifi_hostname;
-    WiFiServer *telnetServer;
-
-    JV_OTA( char* wifi_ssid, char* wifi_password = "", char* wifi_hostname = "" );
-    void setup();
-    void loop();
-    void showMessage(char * line1, char* line2);
-    void showMessage(char * line1);
-    void showMessage(char * line1, String line2);
-    void showMessage(String line1);
-    void showMessage(String line1, char * line2);
-    void showMessage(String line1, String line2);
+    THandlerFunction_Message on_message;
+    void showMessage(char *message, int line=1);
+    void showMessage(String message, int line=1);
 };
 
 #endif

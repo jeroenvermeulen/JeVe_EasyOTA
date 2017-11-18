@@ -1,19 +1,23 @@
+/*
+ * To start mDNS monitor (OSX) exec:   dns-sd -B _arduino._tcp .
+ */
 
-#include <JV_OTA.h>  
-#include <Arduino.h>      // https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/cores/arduino/Arduino.h
+#include <JV_OTA.h>   // https://github.com/jeroenvermeulen/JV_OTA/blob/master/JV_OTA.h
 
-#define wifi_ssid "your-wifi-ssid"
-#define wifi_password "your-wifi-password"
-#define wifi_hostname "ESP8266-"
-
-JV_OTA OTA( wifi_ssid, wifi_password, wifi_hostname );
+#define WIFI_SSID     "your-wifi-ssid"
+#define WIFI_PASSWORD "your-wifi-password"
+#define WIFI_HOSTNAME "ota-flash-demo"
+JV_OTA OTA;
 
 void setup() {
   Serial.begin(9600);
-  OTA.setup();
+  // This callback will be called when JV_OTA has anything to tell you.
+  OTA.onMessage([](char *message, int line) {
+    Serial.println(message);
+  });
+  OTA.setup(WIFI_SSID, WIFI_PASSWORD, WIFI_HOSTNAME);
 }
 
 void loop() {
   OTA.loop();
-  delay(100);
 }
