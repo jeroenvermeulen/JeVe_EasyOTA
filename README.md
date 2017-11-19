@@ -5,7 +5,7 @@ JeVe_EasyOTA library for Arduino
 
 ## Install as ZIP
 
-* [Download ZIP file](https://github.com/jeroenvermeulen/JeVe_EasyOTA/archive/master.zip)
+* [Click here to download the ZIP file](https://github.com/jeroenvermeulen/JeVe_EasyOTA/archive/master.zip)
 * Start the Arduino IDE
 * Go to _Sketch > Include Library > Add .ZIP Library..._
 * Select the ZIP file you just downloaded
@@ -14,8 +14,8 @@ JeVe_EasyOTA library for Arduino
 
 * Open a terminal window
 * Go to your Arduino libraries dir: `cd ~/Documents/Arduino/libraries`
-* Execute: `git clone git@github.com:jeroenvermeulen/JeVe_EasyOTA.git`
-* Restart your Arduino IDE
+* Execute: `git clone https://github.com/jeroenvermeulen/JeVe_EasyOTA.git`
+* (Re)start your Arduino IDE
 
 # Usage
 
@@ -49,6 +49,3 @@ OTA.loop();
 
 That's all folks.
 
-# Problem Solving
-
-## Port is not 
