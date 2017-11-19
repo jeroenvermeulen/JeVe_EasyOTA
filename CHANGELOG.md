@@ -1,3 +1,7 @@
+### master
+
+  * Added different hardware test results to README
+
 ### v2.1.0 (2017-11-10)
 
   * Added + tested support for ESP32
