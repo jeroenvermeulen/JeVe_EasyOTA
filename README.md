@@ -21,7 +21,10 @@ JeVe_EasyOTA library for Arduino
 
 The included examples are the easiest way to learn how to use this library.
 
-## To use it in your own project:
+After you put the code in your Arduino, after a few minutes you should see the OTA port in the Arduino IDE under the menu _Tools > Port_ 
+![Arduino IDE Menu > Port](docs/menu_ota_port.png)
+
+## To include it in your own project:
 
 Put on top of your Arduino file:
 ```
@@ -45,3 +48,7 @@ OTA.loop();
 ```
 
 That's all folks.
+
+# Problem Solving
+
+## Port is not 
