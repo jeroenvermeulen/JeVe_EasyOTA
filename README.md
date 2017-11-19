@@ -49,3 +49,11 @@ OTA.loop();
 
 That's all folks.
 
+# Problem Solving
+
+## Network port is not showing in IDE
+
+* It sometimes takes a few minutes for the port to show in the Arduino IDE
+* Check if the port is found using console (OSX): `dns-sd -B _arduino._tcp`
+* Try to restart the Arduino, wait 5 minutes, check if the _Network port_ shows up
+* Try to restart your Arduino IDE, wait 5 minutes, check if the _Network port_ shows up

@@ -1,6 +1,7 @@
 ### 2.0.1 (2017-11-10)
 
   * Added installation instructions to README.md
+  * Added problem solving instructions
 
 ### 2.0.0 (2017-11-10)
 

@@ -1,5 +1,5 @@
 /*
- * To start mDNS monitor (OSX) exec:   dns-sd -B _arduino._tcp .
+ * To start mDNS monitor (OSX) exec:   dns-sd -B _arduino._tcp
  */
 
 #include <JeVe_EasyOTA.h>  // https://github.com/jeroenvermeulen/JeVe_EasyOTA/blob/master/JeVe_EasyOTA.h
