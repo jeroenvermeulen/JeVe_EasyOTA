@@ -1,6 +1,7 @@
-### master
+### v2.1.1 (2017-11-10)
 
   * Added different hardware test results to README
+  * Replaced `TelnetServer(8266)` by `ArduinoOTA.setPort(8266);`
 
 ### v2.1.0 (2017-11-10)
 

@@ -12,9 +12,6 @@
  
 #include "JeVe_EasyOTA.h"  // https://github.com/jeroenvermeulen/JeVe_EasyOTA/blob/master/JeVe_EasyOTA.h
 
-//Necesary to make Arduino Software autodetect OTA device
-WiFiServer TelnetServer(8266);
-
 // Constructor
 EasyOTA::EasyOTA() {
 }
@@ -57,8 +54,6 @@ void EasyOTA::setup(char* wifi_ssid, char* wifi_password, char* hostname) {
     showMessage("IP: " + WiFi.softAPIP().toString(), 2);
   }
 
-  TelnetServer.begin();  // Necesary to make Arduino Software autodetect OTA device
-
   // ArduinoOTA callback functions
   ArduinoOTA.onStart([this]() {
     showMessage("OTA starting...", 2);
@@ -87,6 +82,7 @@ void EasyOTA::setup(char* wifi_ssid, char* wifi_password, char* hostname) {
     showMessage(line2, 2);
   });
 
+  ArduinoOTA.setPort(8266);
   ArduinoOTA.setHostname(hostname);
   ArduinoOTA.begin();
 };

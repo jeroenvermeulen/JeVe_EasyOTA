@@ -23,7 +23,8 @@ Library which makes it easy to add support for OTA updates to your project. Work
 
 # Usage
 
-The included examples are the easiest way to learn how to use this library.
+The included examples are the easiest way to learn how to use this library. <br />
+You will find them in the Arduino IDE under menu _File > Examples > Examples from Custom Libraries (bottom) > JeVe_EasyOTA_.
 
 **WARNING:** Make sure you select the right board in the Arduino IDE because there is less checking when you upload using OTA.
 
