@@ -1,3 +1,8 @@
+### master
+
+  * Improved README.md
+  * Figured out how to get it working on the ESP-01 1M
+
 ### v2.1.1 (2017-11-10)
 
   * Added different hardware test results to README

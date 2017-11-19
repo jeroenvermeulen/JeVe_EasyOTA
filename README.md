@@ -28,7 +28,8 @@ You will find them in the Arduino IDE under menu _File > Examples > Examples fro
 
 **WARNING:** Make sure you select the right board in the Arduino IDE because there is less checking when you upload using OTA.
 
-After you put the code in your Arduino, after a few minutes you should see the OTA port in the Arduino IDE under the menu _Tools > Port_ 
+After you put the code in your Arduino, after a few minutes you should see the OTA port in the Arduino IDE under the menu _Tools > Port_. 
+
 ![Arduino IDE Menu > Port](docs/menu_ota_port.png)
 
 ## To include it in your own project:
@@ -61,7 +62,7 @@ That's all folks.
 ## Network port is not showing in IDE
 
 * It sometimes takes a few minutes for the port to show in the Arduino IDE
-* Check if the port is found:
+* Check if the port is found, this also seems to speed up detection in the IDE:
   * In OSX on console: `dns-sd -B _arduino._tcp`
   * In Windows use [Bonjour browser](http://hobbyistsoftware.com/bonjourBrowser)
 * Try to restart the Arduino board, wait 5 minutes, check if the _Network port_ shows up
@@ -97,11 +98,9 @@ That's all folks.
 * Example: OTA
 * [Banggood product](https://www.banggood.com/ESP32-Development-Board-WiFiBluetooth-Ultra-Low-Power-Consumption-Dual-Cores-ESP-32-ESP-32S-Board-p-1109512.html)
 
-## Does NOT work with:
-
 #### Upgraded Version 1M Flash ESP8266 ESP-01 WIFI Transceiver Wireless Module
 
-* Problem: OTA Error 4: End Failed
+* Important: Select _Tools > Flash Size > 1M (128K SPIFFS)_
 * Board selection: Generic ESP8266
 * Example: OTA
 * [Banggood product](https://www.banggood.com/Upgraded-Version-1M-Flash-ESP8266-ESP-01-WIFI-Transceiver-Wireless-Module-p-979509.html)
