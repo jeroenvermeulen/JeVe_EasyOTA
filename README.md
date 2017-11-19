@@ -14,8 +14,8 @@ JeVe_EasyOTA library for Arduino
 
 * Open a terminal window
 * Go to your Arduino libraries dir: `cd ~/Documents/Arduino/libraries`
-* Execute: `git clone git@github.com:jeroenvermeulen/JeVe_EasyOTA.git`
-* Restart your Arduino IDE
+* Execute: `git clone https://github.com/jeroenvermeulen/JeVe_EasyOTA.git`
+* (Re)start your Arduino IDE
 
 # Usage
 
