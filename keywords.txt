@@ -2,7 +2,8 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-JV_OTA	KEYWORD1
+EasyOTA	KEYWORD1
+OTA	KEYWORD1
 THandlerFunction_Message	KEYWORD1
 
 #######################################
@@ -16,3 +17,7 @@ onMessage	KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
+
+WIFI_SSID LITERAL1
+WIFI_PASSWORD LITERAL1
+ARDUINO_HOSTNAME LITERAL1

@@ -1,5 +1,5 @@
 /*
- * JV_OTA.cpp - library to include to allow Over-The-Air updates of ESP8266
+ * EasyOTA.cpp - library to include to allow Over-The-Air updates of ESP8266
  *
  * Inspired on:
  *    http://simplestuffmatters.com/?p=69
@@ -9,27 +9,27 @@
  *
  */
  
-#include "JV_OTA.h"
+#include "JeVe_EasyOTA.h"  // https://github.com/jeroenvermeulen/JeVe_EasyOTA/blob/master/JeVe_EasyOTA.h
 
 //Necesary to make Arduino Software autodetect OTA device
 WiFiServer TelnetServer(8266);
 
-JV_OTA::JV_OTA() {
+EasyOTA::EasyOTA() {
   // Constructor
 }
 
-void JV_OTA::onMessage(THandlerFunction_Message fn) {
+void EasyOTA::onMessage(THandlerFunction_Message fn) {
   on_message = fn;
 }
 
-void JV_OTA::setup(char* wifi_ssid, char* wifi_password, char* wifi_hostname) {
+void EasyOTA::setup(char* wifi_ssid, char* wifi_password, char* hostname) {
   this->wifi_ssid = wifi_ssid;
   this->wifi_password = wifi_password;
-  this->wifi_hostname = wifi_hostname;
+  this->hostname = hostname;
   showMessage("", 1); // New line in case of using serial output
   showMessage("Connecting Wifi:", 1);
   showMessage(this->wifi_ssid, 2);
-  WiFi.hostname(this->wifi_hostname);
+  WiFi.hostname(this->hostname);
   WiFi.begin(this->wifi_ssid, this->wifi_password);
   unsigned long startTime = millis();
   String progressDots = "";
@@ -47,8 +47,8 @@ void JV_OTA::setup(char* wifi_ssid, char* wifi_password, char* wifi_hostname) {
     showMessage("Going into AP mode.", 2);
     WiFi.mode(WIFI_AP);
     delay(10);
-    WiFi.softAP(this->wifi_hostname);
-    showMessage("AP: " + String(this->wifi_hostname), 1);
+    WiFi.softAP(this->hostname);
+    showMessage("AP: " + String(this->hostname), 1);
     showMessage("IP: " + WiFi.softAPIP().toString(), 2);
   }
 
@@ -81,20 +81,20 @@ void JV_OTA::setup(char* wifi_ssid, char* wifi_password, char* wifi_hostname) {
     else if (error == OTA_END_ERROR)     line2 = "End Failed";
     showMessage(line2, 2);
   });
-  ArduinoOTA.setHostname(this->wifi_hostname);
+  ArduinoOTA.setHostname(this->hostname);
   ArduinoOTA.begin();
 };
 
-void JV_OTA::loop() {
+void EasyOTA::loop() {
   ArduinoOTA.handle();
 }
 
-void JV_OTA::showMessage(char *message, int line) {
+void EasyOTA::showMessage(char *message, int line) {
   if (on_message) {
     on_message(message, line);
   }
 }
-void JV_OTA::showMessage(String message, int line) {
+void EasyOTA::showMessage(String message, int line) {
   showMessage((char *)message.c_str(), line);
 }
 
