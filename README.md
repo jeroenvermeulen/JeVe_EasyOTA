@@ -1,6 +1,10 @@
 JeVe_EasyOTA library for Arduino
 ================================
 
+# Purpose
+
+Library which makes it easy to add support for OTA updates to your project. Works with ESP8266 and ESP32.
+
 # Installation
 
 ## Install as ZIP
@@ -57,3 +61,5 @@ That's all folks.
 * Check if the port is found using console (OSX): `dns-sd -B _arduino._tcp`
 * Try to restart the Arduino, wait 5 minutes, check if the _Network port_ shows up
 * Try to restart your Arduino IDE, wait 5 minutes, check if the _Network port_ shows up
+* On Windows 8.1 or older, mDNS does may not work, or only when you install Bonjour.
+* Your may need op open 'mDNS' on your firewall: UDP port 5353

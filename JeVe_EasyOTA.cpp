@@ -1,11 +1,12 @@
 /*
- * EasyOTA.cpp - library to include to allow Over-The-Air updates of ESP8266
+ * EasyOTA.cpp - library to include to allow Over-The-Air updates of ESP8266 and ESP32
  *
  * Inspired on:
  *    http://simplestuffmatters.com/?p=69
  *    https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS/examples/OTA-mDNS-SPIFFS
+ *    https://github.com/espressif/arduino-esp32/blob/master/libraries/ArduinoOTA/examples/BasicOTA/BasicOTA.ino
  *
- *  mDNS monitor (OSX):  dns-sd -B _arduino._tcp .
+ *  mDNS monitor (OSX):  dns-sd -B _arduino._tcp
  *
  */
  
@@ -14,8 +15,8 @@
 //Necesary to make Arduino Software autodetect OTA device
 WiFiServer TelnetServer(8266);
 
+// Constructor
 EasyOTA::EasyOTA() {
-  // Constructor
 }
 
 void EasyOTA::onMessage(THandlerFunction_Message fn) {
@@ -23,44 +24,48 @@ void EasyOTA::onMessage(THandlerFunction_Message fn) {
 }
 
 void EasyOTA::setup(char* wifi_ssid, char* wifi_password, char* hostname) {
-  this->wifi_ssid = wifi_ssid;
-  this->wifi_password = wifi_password;
-  this->hostname = hostname;
   showMessage("", 1); // New line in case of using serial output
-  showMessage("Connecting Wifi:", 1);
-  showMessage(this->wifi_ssid, 2);
-  WiFi.hostname(this->hostname);
-  WiFi.begin(this->wifi_ssid, this->wifi_password);
+  String line1 = "Connect WiFi";
+  showMessage(line1, 1);
+  showMessage("SSID: " + String(wifi_ssid), 2);
+
+  WiFi.mode(WIFI_STA);
+  #ifdef ESP8266
+  WiFi.hostname(hostname);
+  #endif
+  #ifdef ESP32
+  WiFi.setHostname(hostname);
+  #endif
+
+  WiFi.begin(wifi_ssid, wifi_password);
   unsigned long startTime = millis();
   String progressDots = "";
   while (WiFi.status() != WL_CONNECTED && millis() - startTime < 10000) {
-    delay(500);
-    progressDots += ".";
-    showMessage(progressDots, 2);
+    delay(1000);
+    line1 += ".";
+    showMessage(line1, 1);
   }
-
   if (WiFi.status() == WL_CONNECTED) {
-    showMessage("IP Address:", 1);
-    showMessage(WiFi.localIP().toString(), 2);
+    showMessage("IP: " + WiFi.localIP().toString(), 1);
   } else {
     showMessage("Can't connect WiFi", 1);
     showMessage("Going into AP mode.", 2);
     WiFi.mode(WIFI_AP);
-    delay(10);
-    WiFi.softAP(this->hostname);
-    showMessage("AP: " + String(this->hostname), 1);
+    delay(500); // Extra delay to show message when using LCD / Oled
+    WiFi.softAP(hostname);
+    showMessage("AP: " + String(hostname), 1);
     showMessage("IP: " + WiFi.softAPIP().toString(), 2);
   }
 
   TelnetServer.begin();  // Necesary to make Arduino Software autodetect OTA device
 
+  // ArduinoOTA callback functions
   ArduinoOTA.onStart([this]() {
-    showMessage("OTA starting...", 1);
-    showMessage("", 2);  // If display: Clean any previous error
+    showMessage("OTA starting...", 2);
   });
   ArduinoOTA.onEnd([this]() {
-    showMessage("OTA finished.",1);
-    showMessage("Rebooting...",2);
+    showMessage("OTA done. Rebooting..",2);
+    //showMessage("Rebooting...",2);
   });
   ArduinoOTA.onProgress([this](unsigned int progress, unsigned int total) {
     static unsigned int prevPerc = 100;
@@ -68,7 +73,7 @@ void EasyOTA::setup(char* wifi_ssid, char* wifi_password, char* hostname) {
     unsigned int roundPerc = 5 * (int)(perc / 5);
     if ( roundPerc != prevPerc) {
       prevPerc = roundPerc;
-      showMessage("OTA upload " + String(roundPerc) + "%");
+      showMessage("OTA upload " + String(roundPerc) + "%", 2);
     }
   });
   ArduinoOTA.onError([this](ota_error_t error) {
@@ -81,7 +86,8 @@ void EasyOTA::setup(char* wifi_ssid, char* wifi_password, char* hostname) {
     else if (error == OTA_END_ERROR)     line2 = "End Failed";
     showMessage(line2, 2);
   });
-  ArduinoOTA.setHostname(this->hostname);
+
+  ArduinoOTA.setHostname(hostname);
   ArduinoOTA.begin();
 };
 

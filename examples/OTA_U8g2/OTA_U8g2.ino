@@ -46,10 +46,10 @@ void displayLine(char *message, int line) {
 }
 
 void heartBeat() {
-  static int prevMillis = 0;
-  static int dotState = 0;
+  static long prevMillis = 0;
+  static bool dotState = 0;
   static char sign[2] = {0xB7, 0x0};
-  int curMillis = millis();
+  long curMillis = millis();
   if ( curMillis - prevMillis > 500 ) {
     prevMillis = curMillis;
     dotState = !dotState;
