@@ -1,9 +1,27 @@
 JeVe_EasyOTA library for Arduino
 ================================
 
-Check the examples to learn how to use it.
+# Installation
 
-## To use:
+## Install as ZIP
+
+* [Download ZIP file](https://github.com/jeroenvermeulen/JeVe_EasyOTA/archive/master.zip)
+* Start the Arduino IDE
+* Go to _Sketch > Include Library > Add .ZIP Library..._
+* Select the ZIP file you just downloaded
+
+## Install using Git (OSX / Linux)
+
+* Open a terminal window
+* Go to your Arduino libraries dir: `cd ~/Documents/Arduino/libraries`
+* Execute: `git clone git@github.com:jeroenvermeulen/JeVe_EasyOTA.git`
+* Restart your Arduino IDE
+
+# Usage
+
+The included examples are the easiest way to learn how to use this library.
+
+## To use it in your own project:
 
 Put on top of your Arduino file:
 ```
@@ -25,3 +43,5 @@ Put this in you `loop` function:
 ```
 OTA.loop();
 ```
+
+That's all folks.
