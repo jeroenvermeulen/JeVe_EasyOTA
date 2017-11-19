@@ -5,7 +5,7 @@ JeVe_EasyOTA library for Arduino
 
 ## Install as ZIP
 
-* [Download ZIP file](https://github.com/jeroenvermeulen/JeVe_EasyOTA/archive/master.zip)
+* [Click here to download the ZIP file](https://github.com/jeroenvermeulen/JeVe_EasyOTA/archive/master.zip)
 * Start the Arduino IDE
 * Go to _Sketch > Include Library > Add .ZIP Library..._
 * Select the ZIP file you just downloaded
