@@ -2,6 +2,8 @@
 
   * Improved README.md
   * Figured out how to get it working on the ESP-01 1M
+  * Moved library source files to `src` dir
+  * Working on I2C LCD example
 
 ### v2.1.1 (2017-11-10)
 
