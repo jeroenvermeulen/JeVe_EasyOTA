@@ -1,0 +1,23 @@
+{
+  "name": "JeVe_EasyOTA",
+  "authors":
+  {
+    "name": "Jeroen Vermeulen",
+    "email": "info@jeve.eu",
+    "url": "https://www.jeroenvermeulen.eu/"
+  },
+  "keywords": "OTA, Over The Air Updates, ArduinoOTA",
+  "description": "Library which makes it easy to add support for OTA updates to your project. Works with ESP8266 and ESP32.",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/jeroenvermeulen/JeVe_EasyOTA.git"
+  },
+  "frameworks": "arduino",
+  "platforms":
+  [
+    "esp8266",
+    "esp32",
+    "espressif32"
+  ]
+}

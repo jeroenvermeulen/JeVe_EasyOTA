@@ -10,7 +10,7 @@
  *
  */
  
-#include "JeVe_EasyOTA.h"  // https://github.com/jeroenvermeulen/JeVe_EasyOTA/blob/master/JeVe_EasyOTA.h
+#include "JeVe_EasyOTA.h"  // https://github.com/jeroenvermeulen/JeVe_EasyOTA/blob/master/src/JeVe_EasyOTA.h
 
 // Constructor
 EasyOTA::EasyOTA() {
@@ -24,7 +24,7 @@ void EasyOTA::setup(char* wifi_ssid, char* wifi_password, char* hostname) {
   showMessage("", 1); // New line in case of using serial output
   String line1 = "Connect WiFi";
   showMessage(line1, 1);
-  showMessage("SSID: " + String(wifi_ssid), 2);
+  showMessage("SSID " + String(wifi_ssid), 2);
 
   WiFi.mode(WIFI_STA);
   #ifdef ESP8266
@@ -43,15 +43,15 @@ void EasyOTA::setup(char* wifi_ssid, char* wifi_password, char* hostname) {
     showMessage(line1, 1);
   }
   if (WiFi.status() == WL_CONNECTED) {
-    showMessage("IP: " + WiFi.localIP().toString(), 1);
+    showMessage("IP " + WiFi.localIP().toString(), 1);
   } else {
     showMessage("Can't connect WiFi", 1);
     showMessage("Going into AP mode.", 2);
     WiFi.mode(WIFI_AP);
     delay(500); // Extra delay to show message when using LCD / Oled
     WiFi.softAP(hostname);
-    showMessage("AP: " + String(hostname), 1);
-    showMessage("IP: " + WiFi.softAPIP().toString(), 2);
+    showMessage("AP " + String(hostname), 1);
+    showMessage("IP " + WiFi.softAPIP().toString(), 2);
   }
 
   // ArduinoOTA callback functions
@@ -59,7 +59,7 @@ void EasyOTA::setup(char* wifi_ssid, char* wifi_password, char* hostname) {
     showMessage("OTA starting...", 2);
   });
   ArduinoOTA.onEnd([this]() {
-    showMessage("OTA done. Rebooting..",2);
+    showMessage("OTA done.Reboot...",2);
     //showMessage("Rebooting...",2);
   });
   ArduinoOTA.onProgress([this](unsigned int progress, unsigned int total) {
@@ -91,12 +91,12 @@ void EasyOTA::loop() {
   ArduinoOTA.handle();
 }
 
-void EasyOTA::showMessage(char *message, int line) {
+void EasyOTA::showMessage(char *message, int line_nr) {
   if (on_message) {
-    on_message(message, line);
+    on_message(message, line_nr);
   }
 }
-void EasyOTA::showMessage(String message, int line) {
-  showMessage((char *)message.c_str(), line);
+void EasyOTA::showMessage(String message, int line_nr) {
+  showMessage((char *)message.c_str(), line_nr);
 }
 

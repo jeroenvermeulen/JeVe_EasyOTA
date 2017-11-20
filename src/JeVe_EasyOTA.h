@@ -29,7 +29,7 @@
 class EasyOTA
 {
   public:
-    typedef std::function<void(char *message, int line)> THandlerFunction_Message;
+    typedef std::function<void(char *message, int line_nr)> THandlerFunction_Message;
     EasyOTA();
     void setup(char* wifi_ssid, char* wifi_password = "", char* hostname = "");
     void loop();
@@ -37,8 +37,8 @@ class EasyOTA
 
   private:
     THandlerFunction_Message on_message;
-    void showMessage(char *message, int line=1);
-    void showMessage(String message, int line=1);
+    void showMessage(char *message, int line_nr=1);
+    void showMessage(String message, int line_nr=1);
 };
 
 #endif

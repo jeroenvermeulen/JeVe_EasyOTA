@@ -77,30 +77,33 @@ That's all folks.
 #### Wemos® TTGO ESP8266 0.91 Inch OLED For Arduino Nodemcu 
 
 * Board selection: NodeMCU 0.9 (ESP-12 Module)
-* Example: OTA_U8g2
-* [Banggood product](https://www.banggood.com/Wemos-TTGO-ESP8266-0_91-Inch-OLED-For-Arduino-Nodemcu-p-1205904.html)
+* Example: OTA_Oled_U8g2
+* [Banggood board](https://www.banggood.com/Wemos-TTGO-ESP8266-0_91-Inch-OLED-For-Arduino-Nodemcu-p-1205904.html)
 
 #### WeMos® TTGO ESP32 WiFi + Bluetooth Board 4MB Flash UNO D1 R32
+##### with Geekcreit® IIC / I2C 1602 Blue Backlight LCD Display Module For Arduino
 
-* Board selection: WEMOS LOLIN32
-* Example: OTA
-* [Banggood product](https://www.banggood.com/WeMos-TTgo-ESP32-WiFi-Bluetooth-Board-4MB-Flash-UNO-D1-R32-p-1163967.html)
+* Board selection: ESP32 Dev Module
+* Example: OTA_LCD_I2C
+* Note: The SCL and SCA pins are the ones closest to the reset button on this board.
+* [Banggood board](https://www.banggood.com/ESP32-Development-Board-WiFiBluetooth-Ultra-Low-Power-Consumption-Dual-Cores-ESP-32-ESP-32S-Board-p-1109512.html)
+* [Banggood display](https://www.banggood.com/IIC-I2C-1602-Blue-Backlight-LCD-Display-Module-For-Arduino-p-950726.html)
 
 #### Geekcreit® LoLin V3 NodeMcu Lua WIFI Development Board
 
 * Board selection: NodeMCU 1.0 (ESP-12E Module)
 * Example: OTA
-* [Banggood product](https://www.banggood.com/V3-NodeMcu-Lua-WIFI-Development-Board-p-992733.html)
+* [Banggood board](https://www.banggood.com/V3-NodeMcu-Lua-WIFI-Development-Board-p-992733.html)
 
 #### Geekcreit® ESP32 Development Board WiFi+Bluetooth Ultra Low Power Consumption Dual Cores ESP-32 ESP-32S Board
 
 * Board selection: DOIT ESP32 DEVKIT V1
 * Example: OTA
-* [Banggood product](https://www.banggood.com/ESP32-Development-Board-WiFiBluetooth-Ultra-Low-Power-Consumption-Dual-Cores-ESP-32-ESP-32S-Board-p-1109512.html)
+* [Banggood board](https://www.banggood.com/ESP32-Development-Board-WiFiBluetooth-Ultra-Low-Power-Consumption-Dual-Cores-ESP-32-ESP-32S-Board-p-1109512.html)
 
 #### Upgraded Version 1M Flash ESP8266 ESP-01 WIFI Transceiver Wireless Module
 
 * Important: Select _Tools > Flash Size > 1M (128K SPIFFS)_
 * Board selection: Generic ESP8266
 * Example: OTA
-* [Banggood product](https://www.banggood.com/Upgraded-Version-1M-Flash-ESP8266-ESP-01-WIFI-Transceiver-Wireless-Module-p-979509.html)
+* [Banggood board](https://www.banggood.com/Upgraded-Version-1M-Flash-ESP8266-ESP-01-WIFI-Transceiver-Wireless-Module-p-979509.html)
