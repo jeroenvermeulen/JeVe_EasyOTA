@@ -103,6 +103,12 @@ That's all folks.
 * Example: OTA
 * [Banggood board](https://www.banggood.com/Upgraded-Version-1M-Flash-ESP8266-ESP-01-WIFI-Transceiver-Wireless-Module-p-979509.html)
 
+#### WeMos® D1 mini V2.2.0 WIFI Internet Development Board Based ESP8266 4MB FLASH ESP-12S Chip
+
+* Board selection: WeMos D1 R2 & Mini
+* Example: OTA
+* [Banggood board](https://www.banggood.com/WeMos-D1-mini-V2_2_0-WIFI-Internet-Development-Board-Based-ESP8266-4MB-FLASH-ESP-12S-Chip-p-1143874.html)
+
 ### ESP32
 
 #### Geekcreit® ESP32 Development Board WiFi+Bluetooth Ultra Low Power Consumption Dual Cores ESP-32 ESP-32S Board

@@ -1,6 +1,7 @@
 ### Master
 
   * Improved README.md
+  * Tested on more boards
 
 ### v2.2.0 (2017-11-21)
 
