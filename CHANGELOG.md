@@ -1,3 +1,7 @@
+### Master
+
+  * Improved README.md
+
 ### v2.2.0 (2017-11-21)
 
   * Improved README.md

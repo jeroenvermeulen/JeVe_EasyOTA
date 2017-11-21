@@ -28,7 +28,9 @@ You will find them in the Arduino IDE under menu _File > Examples > Examples fro
 
 **WARNING:** Make sure you select the right board in the Arduino IDE because there is less checking when you upload using OTA.
 
-After you put the code in your Arduino, after a few minutes you should see the OTA port in the Arduino IDE under the menu _Tools > Port_. 
+After you put the code in your Arduino, after a few minutes you should see the OTA port in the Arduino IDE under the menu _Tools > Port_.
+
+If somehow the wifi connection fails, the Arduino will become an access point with the configured hostname as SSID. In the examples the default hostname is `ota-flash-demo`. 
 
 ![Arduino IDE Menu > Port](docs/menu_ota_port.png)
 
@@ -74,11 +76,40 @@ That's all folks.
 
 ## Works with:
 
+### ESP8266
+
 #### Wemos® TTGO ESP8266 0.91 Inch OLED For Arduino Nodemcu 
 
 * Board selection: NodeMCU 0.9 (ESP-12 Module)
 * Example: OTA_Oled_U8g2
 * [Banggood board](https://www.banggood.com/Wemos-TTGO-ESP8266-0_91-Inch-OLED-For-Arduino-Nodemcu-p-1205904.html)
+
+#### Geekcreit® NodeMcu Lua ESP8266 ESP-12E WIFI Development Board
+
+* Board selection: NodeMCU 1.0 (ESP-12E Module)
+* Example: OTA
+* [Banggood board](https://www.banggood.com/Geekcreit-Doit-NodeMcu-Lua-ESP8266-ESP-12E-WIFI-Development-Board-p-985891.html)
+
+#### Geekcreit® LoLin V3 NodeMcu Lua WIFI Development Board
+
+* Board selection: NodeMCU 1.0 (ESP-12E Module)
+* Example: OTA
+* [Banggood board](https://www.banggood.com/V3-NodeMcu-Lua-WIFI-Development-Board-p-992733.html)
+
+#### Upgraded Version 1M Flash ESP8266 ESP-01 WIFI Transceiver Wireless Module
+
+* Important: Select _Tools > Flash Size > 1M (128K SPIFFS)_
+* Board selection: Generic ESP8266
+* Example: OTA
+* [Banggood board](https://www.banggood.com/Upgraded-Version-1M-Flash-ESP8266-ESP-01-WIFI-Transceiver-Wireless-Module-p-979509.html)
+
+### ESP32
+
+#### Geekcreit® ESP32 Development Board WiFi+Bluetooth Ultra Low Power Consumption Dual Cores ESP-32 ESP-32S Board
+
+* Board selection: DOIT ESP32 DEVKIT V1
+* Example: OTA
+* [Banggood board](https://www.banggood.com/ESP32-Development-Board-WiFiBluetooth-Ultra-Low-Power-Consumption-Dual-Cores-ESP-32-ESP-32S-Board-p-1109512.html)
 
 #### WeMos® TTGO ESP32 WiFi + Bluetooth Board 4MB Flash UNO D1 R32
 ##### with Geekcreit® IIC / I2C 1602 Blue Backlight LCD Display Module For Arduino
@@ -88,22 +119,3 @@ That's all folks.
 * Note: The SCL and SCA pins are the ones closest to the reset button on this board.
 * [Banggood board](https://www.banggood.com/ESP32-Development-Board-WiFiBluetooth-Ultra-Low-Power-Consumption-Dual-Cores-ESP-32-ESP-32S-Board-p-1109512.html)
 * [Banggood display](https://www.banggood.com/IIC-I2C-1602-Blue-Backlight-LCD-Display-Module-For-Arduino-p-950726.html)
-
-#### Geekcreit® LoLin V3 NodeMcu Lua WIFI Development Board
-
-* Board selection: NodeMCU 1.0 (ESP-12E Module)
-* Example: OTA
-* [Banggood board](https://www.banggood.com/V3-NodeMcu-Lua-WIFI-Development-Board-p-992733.html)
-
-#### Geekcreit® ESP32 Development Board WiFi+Bluetooth Ultra Low Power Consumption Dual Cores ESP-32 ESP-32S Board
-
-* Board selection: DOIT ESP32 DEVKIT V1
-* Example: OTA
-* [Banggood board](https://www.banggood.com/ESP32-Development-Board-WiFiBluetooth-Ultra-Low-Power-Consumption-Dual-Cores-ESP-32-ESP-32S-Board-p-1109512.html)
-
-#### Upgraded Version 1M Flash ESP8266 ESP-01 WIFI Transceiver Wireless Module
-
-* Important: Select _Tools > Flash Size > 1M (128K SPIFFS)_
-* Board selection: Generic ESP8266
-* Example: OTA
-* [Banggood board](https://www.banggood.com/Upgraded-Version-1M-Flash-ESP8266-ESP-01-WIFI-Transceiver-Wireless-Module-p-979509.html)
