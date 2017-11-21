@@ -3,7 +3,7 @@ JeVe_EasyOTA library for Arduino
 
 # Purpose
 
-Library which makes it easy to add support for OTA updates to your project. Works with ESP8266 and ESP32.
+Library which makes it easy to add support for Over-The-Air (OTA) updates to your project. Works with ESP8266 and ESP32.
 
 # Installation
 

@@ -7,7 +7,7 @@
     "url": "https://www.jeroenvermeulen.eu/"
   },
   "keywords": "OTA, Over The Air Updates, ArduinoOTA",
-  "description": "Library which makes it easy to add support for OTA updates to your project. Works with ESP8266 and ESP32.",
+  "description": "Library which makes it easy to add support for Over-The-Air (OTA) updates to your project. Works with ESP8266 and ESP32.",
   "repository":
   {
     "type": "git",
