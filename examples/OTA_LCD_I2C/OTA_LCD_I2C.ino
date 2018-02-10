@@ -5,13 +5,13 @@
  * To start mDNS monitor (OSX) exec:   dns-sd -B _arduino._tcp
  */
 
-#include <JeVe_EasyOTA.h>           // https://github.com/jeroenvermeulen/JeVe_EasyOTA/blob/master/src/JeVe_EasyOTA.h
+#include <EasyOTA.h>           // https://github.com/foxis/EasyOTA/blob/master/src/EasyOTA.h
 #include <LiquidCrystal_PCF8574.h>  // https://github.com/mathertel/LiquidCrystal_PCF8574/blob/master/src/LiquidCrystal_PCF8574.h
 
 #define WIFI_SSID        "your-wifi-ssid"
 #define WIFI_PASSWORD    "your-wifi-password"
 #define ARDUINO_HOSTNAME "ota-flash-demo"
-EasyOTA OTA;
+EasyOTA OTA(ARDUINO_HOSTNAME);
 
 #define LCD_I2C_ADDRESS  0x3F  // You can also try 0x27 or use I2cScanner
 #define LCD_WIDTH        16
@@ -35,12 +35,12 @@ void setup() {
   lcd.begin(LCD_WIDTH, LCD_HEIGHT);
   lcd.clear();
   lcd.setBacklight(255);
-  // This callback will be called when JeVe_EasyOTA has anything to tell you.
+  // This callback will be called when EasyOTA has anything to tell you.
   OTA.onMessage([](char *message, int line_nr) {
     Serial.println(message);
     displayLine(message, line_nr);
   });
-  OTA.setup(WIFI_SSID, WIFI_PASSWORD, ARDUINO_HOSTNAME);
+	OTA.addAP(WIFI_SSID, WIFI_PASSWORD);
 }
 
 void loop() {

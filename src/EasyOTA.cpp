@@ -58,10 +58,10 @@ int EasyOTA::setupOTA(unsigned long now)
 {
 	// ArduinoOTA callback functions
   ArduinoOTA.onStart([this]() {
-    showMessage("OTA starting...", 2);
+    showMessage("OTA starting...", 1);
   });
   ArduinoOTA.onEnd([this]() {
-    showMessage("OTA done.Reboot...",2);
+    showMessage("OTA done.Reboot...",1);
   });
   ArduinoOTA.onProgress([this](unsigned int progress, unsigned int total) {
     static unsigned int prevPerc = 100;
@@ -69,18 +69,18 @@ int EasyOTA::setupOTA(unsigned long now)
     unsigned int roundPerc = 5 * (int)(perc / 5);
     if ( roundPerc != prevPerc) {
       prevPerc = roundPerc;
-      showMessage("OTA upload " + String(roundPerc) + "%", 2);
+      showMessage("OTA upload " + String(roundPerc) + "%", 1);
     }
   });
   ArduinoOTA.onError([this](ota_error_t error) {
-    showMessage("OTA Error " + String(error) + ":", 1);
+    showMessage("OTA Error " + String(error) + ":", 0);
     String line2 = "";
     if (error == OTA_AUTH_ERROR)         line2 = "Auth Failed";
     else if (error == OTA_BEGIN_ERROR)   line2 = "Begin Failed";
     else if (error == OTA_CONNECT_ERROR) line2 = "Connect Failed";
     else if (error == OTA_RECEIVE_ERROR) line2 = "Receive Failed";
     else if (error == OTA_END_ERROR)     line2 = "End Failed";
-    showMessage(line2, 2);
+    showMessage(line2, 1);
   });
 
   ArduinoOTA.setPort(_port);
@@ -96,7 +96,7 @@ int EasyOTA::connectWifi(unsigned long startTime, const String& wifi_ssid, const
 {
 	wl_status_t status;
 
-	showMessage("Trying " + wifi_ssid, 1);
+	showMessage("Trying " + wifi_ssid, 0);
 
 	if (BSSID)
 		WiFi.begin(wifi_ssid.c_str(), wifi_password.c_str(), chan, BSSID);
@@ -107,8 +107,8 @@ int EasyOTA::connectWifi(unsigned long startTime, const String& wifi_ssid, const
 
 		switch (status){
 			case WL_CONNECTED:
-				showMessage("IP " + WiFi.localIP().toString(), 1);
-				showMessage("SSID " + wifi_ssid, 2);
+				showMessage("IP " + WiFi.localIP().toString(), 0);
+				showMessage("SSID " + wifi_ssid, 1);
 				_ap = false;
 				_currentAP = wifi_ssid;
 				return 0;
@@ -168,12 +168,12 @@ int EasyOTA::setupWifi(unsigned long now) {
 	}
 
 	// fallback to AP mode
-	showMessage("No AP available", 1);
-	showMessage("Starting AP", 2);
+	showMessage("No AP available", 0);
+	showMessage("Starting AP", 1);
 	WiFi.mode(WIFI_AP);
 	WiFi.softAP(_hostname.c_str());
-	showMessage("AP " + _hostname, 1);
-	showMessage("IP " + WiFi.softAPIP().toString(), 2);
+	showMessage("AP " + _hostname, 0);
+	showMessage("IP " + WiFi.softAPIP().toString(), 1);
 	_ap = true;
 	_currentAP = _hostname;
 	return 0;
@@ -190,7 +190,7 @@ int EasyOTA::scanWifi(unsigned long now)
 			return 1;
 		} else {
 			if (scanResult <= 0) {
-				showMessage("Wifi scan", 1);
+				showMessage("Wifi scan", 0);
 				WiFi.scanNetworks(true);
 				return 1;
 			} else {
