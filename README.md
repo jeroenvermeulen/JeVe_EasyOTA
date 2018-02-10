@@ -1,15 +1,24 @@
-JeVe_EasyOTA library for Arduino
+EasyOTA library for Arduino
 ================================
+
+# Acknowledgements
+
+This library is a refactored version of JeVe_EasyOTA with inspiration from WiFiMulti library.
 
 # Purpose
 
 Library which makes it easy to add support for Over-The-Air (OTA) updates to your project. Works with ESP8266 and ESP32.
 
+# How it Works
+
+This library tries to connect to configured APs first. Then if those fail ,tries to scan for open networks and connect to those.
+If it is not possible to connect to neither configured nor open networks - it falls back to AP mode.
+
 # Installation
 
 ## Install as ZIP
 
-* [Click here to download the ZIP file](https://github.com/jeroenvermeulen/JeVe_EasyOTA/archive/master.zip)
+* [Click here to download the ZIP file](https://github.com/foxis/EasyOTA/archive/master.zip)
 * Start the Arduino IDE
 * Go to _Sketch > Include Library > Add .ZIP Library..._
 * Select the ZIP file you just downloaded
@@ -18,19 +27,19 @@ Library which makes it easy to add support for Over-The-Air (OTA) updates to you
 
 * Open a terminal window
 * Go to your Arduino libraries dir: `cd ~/Documents/Arduino/libraries`
-* Execute: `git clone https://github.com/jeroenvermeulen/JeVe_EasyOTA.git`
+* Execute: `git clone https://github.com/foxis/EasyOTA.git`
 * (Re)start your Arduino IDE
 
 # Usage
 
 The included examples are the easiest way to learn how to use this library. <br />
-You will find them in the Arduino IDE under menu _File > Examples > Examples from Custom Libraries (bottom) > JeVe_EasyOTA_.
+You will find them in the Arduino IDE under menu _File > Examples > Examples from Custom Libraries (bottom) > EasyOTA_.
 
 **WARNING:** Make sure you select the right board in the Arduino IDE because there is less checking when you upload using OTA.
 
 After you put the code in your Arduino, after a few minutes you should see the OTA port in the Arduino IDE under the menu _Tools > Port_.
 
-If somehow the wifi connection fails, the Arduino will become an access point with the configured hostname as SSID. In the examples the default hostname is `ota-flash-demo`. 
+If somehow the wifi connection fails, the Arduino will become an access point with the configured hostname as SSID. In the examples the default hostname is `EasyOTA`.
 
 ![Arduino IDE Menu > Port](docs/menu_ota_port.png)
 
@@ -38,18 +47,24 @@ If somehow the wifi connection fails, the Arduino will become an access point wi
 
 Put on top of your Arduino file:
 ```
-#include <JeVe_EasyOTA.h> 
-EasyOTA OTA;
+#include <EasyOTA.h>
+EasyOTA OTA("arduino_hostname");
 ```
 
 Put this in your `setup()` function. This example logs debugging output to Serial:
 ```
 Serial.begin(9600);
-// This callback will be called when JeVe_EasyOTA has anything to tell you.
-OTA.onMessage([](char *message, int line) {
+// This callback will be called when EasyOTA has anything to tell you.
+OTA.onMessage([](const String& message, int line) {
   Serial.println(message);
 });
-OTA.setup("wifi_ssid", "wifi_password", "arduino_hostname");
+// Add networks you wish to connect to
+OTA.addAP("wifi_ssid", "wifi_password");
+// Allow open networks.
+// NOTE: gives priority to configured networks
+OTA.allowOpen(true);
+// Set password for OTA programming
+OTA.setPassword("OTApassword");
 ```
 
 Put this in you `loop` function:
@@ -78,7 +93,7 @@ That's all folks.
 
 ### ESP8266
 
-#### Wemos® TTGO ESP8266 0.91 Inch OLED For Arduino Nodemcu 
+#### Wemos® TTGO ESP8266 0.91 Inch OLED For Arduino Nodemcu
 
 * Board selection: NodeMCU 0.9 (ESP-12 Module)
 * Example: OTA_Oled_U8g2
