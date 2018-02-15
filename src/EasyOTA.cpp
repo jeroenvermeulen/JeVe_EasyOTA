@@ -53,13 +53,17 @@ void EasyOTA::addAP(const String& wifi_ssid, const String& wifi_password)
 {
 	_access_points.insert(std::pair<String, String>(wifi_ssid, wifi_password));
 }
-void EasyOTA::eachAP(THandlerFunction_APList fn)
+void EasyOTA::removeAP(const String& wifi_ssid)
+{
+	_access_points.erase(wifi_ssid);
+}
+void EasyOTA::eachAP(THandlerFunction_APList fn, void * param)
 {
 	if (fn == NULL)
 		return;
 	std::map<String, String>::iterator I = _access_points.begin();
 	while (I != _access_points.end()) {
-		fn(I->first, I->second);
+		fn(I->first, I->second, param);
 		I++;
 	}
 }
