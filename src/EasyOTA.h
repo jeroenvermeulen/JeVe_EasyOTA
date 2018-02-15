@@ -46,13 +46,15 @@ class EasyOTA
 
 		typedef std::function<void(const String& message, int line_nr)> THandlerFunction_Message;
 		typedef std::function<void(const String& ssid, STATE state)> THandlerFunction_Connect;
-    typedef std::function<void(const String& ssid, uint8_t sec, int32_t rssi, const uint8_t * BSSID, int32_t chan, bool hidden)> THandlerFunction_Scan;
+		typedef std::function<void(const String& ssid, uint8_t sec, int32_t rssi, const uint8_t * BSSID, int32_t chan, bool hidden)> THandlerFunction_Scan;
+    typedef std::function<void(const String& ssid, const String& passw)> THandlerFunction_APList;
 
 		EasyOTA();
 		EasyOTA(const String& hostname);
     EasyOTA(const String& hostname, int port);
 
 		void addAP(const String& wifi_ssid, const String& wifi_password);
+		void eachAP(THandlerFunction_APList fn);
 		void setPassword(const String& password);
 
 		///
