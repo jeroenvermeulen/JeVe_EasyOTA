@@ -137,11 +137,11 @@ int EasyOTA::connectWifi(unsigned long startTime, const String& wifi_ssid, const
 }
 
 int EasyOTA::setupWifi(unsigned long now) {
-	static long retry_ms;
+	static unsigned long retry_ms;
 
 	if (_access_points.size() == 1 && !_allowOpen) {
 		// Skip scanning phase for single ap
-		std::map<String, String>::iterator I;
+		std::map<String, String>::iterator I = _access_points.begin();
 		if (!connectWifi(now, I->first, I->second, NULL, 0))
 			return 0;
 	} else if (_access_points.size() > 1 || _allowOpen) {
