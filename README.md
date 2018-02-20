@@ -5,6 +5,17 @@ JeVe_EasyOTA library for Arduino
 
 Library which makes it easy to add support for Over-The-Air (OTA) updates to your project. Works with ESP8266 and ESP32.
 
+## Features
+- [x] mDNS
+- [x] Add multiple networks to connect to
+- [x] Allow/disallow open networks
+- [x] Automatic reconnect on lost network
+- [ ] HTTP update in AP mode
+- [ ] Web update (requires web server)
+- [ ] Stream update (e.g. MQTT or other)
+- [ ] AdHoc network firmware sync - if you have ESP AdHoc network and update one device, all get updated
+- [ ] Firmware sync - you can setup a bunch of devices on the same network you want to keep firmware synchronized without actual AdHoc
+
 # Installation
 
 ## Install as ZIP
