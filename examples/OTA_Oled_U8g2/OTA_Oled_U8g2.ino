@@ -2,7 +2,7 @@
  * To start mDNS monitor (OSX) exec:   dns-sd -B _arduino._tcp
  */
 
-#include <EasyOTA.h>  // https://github.com/foxis/EasyOTA/blob/master/src/EasyOTA.h
+#include <JeVe_EasyOTA.h>  
 #include <U8g2lib.h>       // https://github.com/olikraus/u8g2/blob/master/cppsrc/U8g2lib.h
 
 // You may need to replace the oled initialisation with another type from

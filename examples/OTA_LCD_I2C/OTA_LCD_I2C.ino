@@ -5,7 +5,7 @@
  * To start mDNS monitor (OSX) exec:   dns-sd -B _arduino._tcp
  */
 
-#include <EasyOTA.h>           // https://github.com/foxis/EasyOTA/blob/master/src/EasyOTA.h
+#include <JeVe_EasyOTA.h>     
 #include <LiquidCrystal_PCF8574.h>  // https://github.com/mathertel/LiquidCrystal_PCF8574/blob/master/src/LiquidCrystal_PCF8574.h
 
 #define WIFI_SSID        "your-wifi-ssid"

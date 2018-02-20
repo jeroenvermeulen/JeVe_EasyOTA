@@ -8,7 +8,6 @@
   * Refactored JeVe_EasyOTA Library
 	* Updated examples
 	* Updated documents
-	* Changed name to EasyOTA
 	* Added GPL license
 
 ### v2.2.0 (2017-11-21)
