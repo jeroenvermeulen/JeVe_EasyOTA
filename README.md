@@ -5,6 +5,21 @@ JeVe_EasyOTA library for Arduino
 
 Library which makes it easy to add support for Over-The-Air (OTA) updates to your project. Works with ESP8266 and ESP32.
 
+## Features
+- [x] mDNS
+- [x] Add multiple networks to connect to
+- [x] Allow/disallow open networks
+- [x] Automatic reconnect on lost network
+- [ ] HTTP update in AP mode
+- [ ] Web update (requires web server)
+- [ ] Stream update (e.g. MQTT or other)
+- [ ] AdHoc network firmware sync - if you have ESP AdHoc network and update one device, all get updated
+- [ ] Firmware sync - you can setup a bunch of devices on the same network you want to keep firmware synchronized without actual AdHoc
+
+## How it works
+
+This library tries to connect to configured APs first. Then if those fail ,tries to scan for open networks and connect to those. If it is not possible to connect to neither configured nor open networks - it falls back to AP mode.
+
 # Installation
 
 ## Install as ZIP
@@ -30,7 +45,7 @@ You will find them in the Arduino IDE under menu _File > Examples > Examples fro
 
 After you put the code in your Arduino, after a few minutes you should see the OTA port in the Arduino IDE under the menu _Tools > Port_.
 
-If somehow the wifi connection fails, the Arduino will become an access point with the configured hostname as SSID. In the examples the default hostname is `ota-flash-demo`. 
+If somehow the wifi connection fails, the Arduino will become an access point with the configured hostname as SSID. In the examples the default hostname is `ota-flash-demo`.
 
 ![Arduino IDE Menu > Port](docs/menu_ota_port.png)
 
@@ -38,23 +53,41 @@ If somehow the wifi connection fails, the Arduino will become an access point wi
 
 Put on top of your Arduino file:
 ```
-#include <JeVe_EasyOTA.h> 
-EasyOTA OTA;
+#include <JeVe_EasyOTA.h>
+EasyOTA OTA("arduino_hostname");
 ```
 
 Put this in your `setup()` function. This example logs debugging output to Serial:
 ```
 Serial.begin(9600);
-// This callback will be called when JeVe_EasyOTA has anything to tell you.
-OTA.onMessage([](char *message, int line) {
+// This callback will be called when EasyOTA has anything to tell you.
+OTA.onMessage([](const String& message, int line) {
   Serial.println(message);
 });
-OTA.setup("wifi_ssid", "wifi_password", "arduino_hostname");
+// Add networks you wish to connect to
+OTA.addAP("wifi_ssid", "wifi_password");
+// Allow open networks.
+// NOTE: gives priority to configured networks
+OTA.allowOpen(true);
+// Set password for OTA programming
+OTA.setPassword("OTApassword");
 ```
 
 Put this in you `loop` function:
 ```
 OTA.loop();
+```
+
+Or if you need timing:
+```
+static unsigned long last_m = millis();
+unsigned long now = millis();
+OTA.loop(now);
+
+if (now - last_m > 1000) {
+	last_m = now;
+	// do something every second
+}
 ```
 
 That's all folks.
@@ -78,7 +111,7 @@ That's all folks.
 
 ### ESP8266
 
-#### Wemos® TTGO ESP8266 0.91 Inch OLED For Arduino Nodemcu 
+#### Wemos® TTGO ESP8266 0.91 Inch OLED For Arduino Nodemcu
 
 * Board selection: NodeMCU 0.9 (ESP-12 Module)
 * Example: OTA_Oled_U8g2

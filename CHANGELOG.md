@@ -3,6 +3,13 @@
   * Improved README.md
   * Tested on more boards
 
+### v3.0.0 (2018-02-19)
+
+  * Refactored JeVe_EasyOTA Library
+	* Updated examples
+	* Updated documents
+	* Added GPL license
+
 ### v2.2.0 (2017-11-21)
 
   * Improved README.md
