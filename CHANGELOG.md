@@ -1,8 +1,20 @@
 ### Master
+  
+  * No changes yet.
+
+### v3.0.1 (2018-09-17)
 
   * Improved README.md
   * Tested on more boards
+  * Removed extra comma in library.json - thanks @gordoste
 
+### v3.0.0 (2018-02-19)
+
+  * Refactored JeVe_EasyOTA Library
+	* Updated examples
+	* Updated documents
+	* Added GPL license
+	
 ### v3.0.0 (2018-02-19)
 
   * Refactored JeVe_EasyOTA Library
