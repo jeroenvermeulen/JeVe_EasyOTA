@@ -47,7 +47,7 @@ After you put the code in your Arduino, after a few minutes you should see the O
 
 If somehow the wifi connection fails, the Arduino will become an access point with the configured hostname as SSID. In the examples the default hostname is `ota-flash-demo`.
 
-![Arduino IDE Menu > Port](docs/menu_ota_port.png)
+![Arduino IDE Menu > Port](https://raw.githubusercontent.com/jeroenvermeulen/JeVe_EasyOTA/master/docs/menu_ota_port.png)
 
 ## To include it in your own project:
 
