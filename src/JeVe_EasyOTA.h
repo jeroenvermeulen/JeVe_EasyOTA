@@ -44,6 +44,12 @@
 #define DEFAULT_OTA_PORT 8266
 #define DEFAULT_OTA_HOSTNAME "EasyOta"
 
+#ifdef OTA_USE_PROGRESS_BAR // Enable this via compiler flag
+#ifndef OTA_PROGRESS_BAR_SIZE // Define this via compiler flag to override the default
+#define OTA_PROGRESS_BAR_SIZE 20
+#endif
+#endif
+
 #define EO_GETTER(T, name) T name() { return _##name; }
 #define EO_SETTER(T, name) T name(T name) { T pa##name = _##name; _##name = name; return pa##name; }
 

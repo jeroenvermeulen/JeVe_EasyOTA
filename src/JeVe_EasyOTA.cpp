@@ -92,6 +92,22 @@ int EasyOTA::setupOTA(unsigned long now)
   ArduinoOTA.onEnd([this]() {
     showMessage("OTA done.Reboot...",1);
   });
+  #ifdef OTA_USE_PROGRESS_BAR
+  static char progressBar[OTA_PROGRESS_BAR_SIZE+1];
+  memset(progressBar, ' ', OTA_PROGRESS_BAR_SIZE);
+  progressBar[0] = '[';
+  progressBar[OTA_PROGRESS_BAR_SIZE-1] = ']';
+  progressBar[OTA_PROGRESS_BAR_SIZE] = '\0';
+  ArduinoOTA.onProgress([this](unsigned int progress, unsigned int total) {
+	static unsigned int prevProg = 100;
+    unsigned int prog = progress / (total/(OTA_PROGRESS_BAR_SIZE-2));
+	Serial.println(prog);
+	if ( prog != prevProg) {
+      memset(progressBar+sizeof(char), '=', prog);
+      showMessage(progressBar, 2);
+    }
+  });
+  #else
   ArduinoOTA.onProgress([this](unsigned int progress, unsigned int total) {
     static unsigned int prevPerc = 100;
     unsigned int perc = (progress / (total / 100));
@@ -101,6 +117,7 @@ int EasyOTA::setupOTA(unsigned long now)
       showMessage("OTA upload " + String(roundPerc) + "%", 1);
     }
   });
+  #endif
   ArduinoOTA.onError([this](ota_error_t error) {
     showMessage("OTA Error " + String(error) + ":", 0);
     String line2 = "";
