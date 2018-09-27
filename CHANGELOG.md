@@ -1,6 +1,10 @@
 ### Master
+
+  * No changes yet
   
-  * No changes yet.
+### v3.1.0 (2018-09-27)
+  
+  * Optional progress bar by @gordoste
 
 ### v3.0.1 (2018-09-17)
 
