@@ -161,9 +161,11 @@ int EasyOTA::connectWifi(unsigned long startTime, const String& wifi_ssid, const
 			case WL_NO_SSID_AVAIL:
 			case WL_CONNECT_FAILED:
 				break;
+			default:
+				break;
 		}
 		delay(10);
-	} while (millis() - startTime < _timeout);
+	} while (millis() < startTime + _timeout);
 
 	return 1;
 }
@@ -198,7 +200,7 @@ int EasyOTA::setupWifi(unsigned long now) {
 	if (_retries_current == 0)
 		retry_ms = now;
 
-	if (now - retry_ms <= 10 * _timeout)
+	if (now <= retry_ms + 10 * _timeout)
 		return 1;
 
 	if (_maxRetries < 0)
@@ -274,7 +276,7 @@ int EasyOTA::scanWifi(unsigned long now)
 
 						// skip black-listed networks (those that failed to connect to)
 						if (rssi_scan > bestRSSI && !bl) {
-							if ((sec_scan == ENC_TYPE_NONE && _allowOpen && exhausted || cap)) {
+							if ((sec_scan == ENC_TYPE_NONE && _allowOpen && exhausted) || cap) {
 								bestSSID = ssid_scan;
 								bestRSSI = rssi_scan;
 								bestChannel = chan_scan;
@@ -350,7 +352,7 @@ void EasyOTA::loop(unsigned long now) {
 				callConnect(EOS_DISCONNECTED);
 			}
 
-			if (_ap && now - rescan_ms > _scanInterval && _scanInterval > 0)
+			if (_ap && now > rescan_ms + _scanInterval && _scanInterval > 0)
 			{
 				// TODO: scan for available wifi and connect to it
 				rescan_ms = now;
