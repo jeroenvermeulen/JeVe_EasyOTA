@@ -1,6 +1,6 @@
 ### Master
 
-  * No changes yet
+  * Remove some compiler warnings - thanks to @gordoste
   
 ### v3.1.0 (2018-09-27)
   
