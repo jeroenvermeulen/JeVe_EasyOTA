@@ -12,7 +12,7 @@ EasyOTA OTA(ARDUINO_HOSTNAME);
 void setup() {
   Serial.begin(9600);
   // This callback will be called when EasyOTA has anything to tell you.
-  OTA.onMessage([](char *message, int line) {
+  OTA.onMessage([](const String& message, int line) {
     Serial.println(message);
   });
   OTA.addAP(WIFI_SSID, WIFI_PASSWORD);
