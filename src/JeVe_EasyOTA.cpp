@@ -101,7 +101,6 @@ int EasyOTA::setupOTA(unsigned long now)
   ArduinoOTA.onProgress([this](unsigned int progress, unsigned int total) {
 	static unsigned int prevProg = 100;
     unsigned int prog = progress / (total/(OTA_PROGRESS_BAR_SIZE-2));
-	Serial.println(prog);
 	if ( prog != prevProg) {
       memset(progressBar+sizeof(char), '=', prog);
       showMessage(progressBar, 2);
@@ -244,7 +243,7 @@ int EasyOTA::scanWifi(unsigned long now)
 			} else {
 				String bestSSID;
 				int32_t bestRSSI = -1000;
-				uint8 bestBSSID[6];
+				uint8_t bestBSSID[6];
 				int32_t bestChannel;
 				std::set<String> black_list;
 				bool call_scan = true;
@@ -258,7 +257,12 @@ int EasyOTA::scanWifi(unsigned long now)
 						int32_t chan_scan;
 						bool hidden_scan;
 
+						#ifdef ESP32 // Espressif Arduino API doesn't tell you about hidden networks
+						WiFi.getNetworkInfo(i, ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan);
+						hidden_scan = false;
+						#else
 						WiFi.getNetworkInfo(i, ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan, hidden_scan);
+						#endif
 						if (call_scan)
 							onScan(ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan, hidden_scan);
 
@@ -276,7 +280,11 @@ int EasyOTA::scanWifi(unsigned long now)
 
 						// skip black-listed networks (those that failed to connect to)
 						if (rssi_scan > bestRSSI && !bl) {
+							#ifdef ESP32
+							if ((sec_scan == WIFI_AUTH_OPEN && _allowOpen && exhausted) || cap) {
+							#else
 							if ((sec_scan == ENC_TYPE_NONE && _allowOpen && exhausted) || cap) {
+							#endif
 								bestSSID = ssid_scan;
 								bestRSSI = rssi_scan;
 								bestChannel = chan_scan;
@@ -324,7 +332,7 @@ void EasyOTA::loop(unsigned long now) {
 #ifdef ESP8266
 		  WiFi.hostname(_hostname);
 #elif ESP32
-		  WiFi.setHostname(_hostname);
+		  WiFi.setHostname(_hostname.c_str());
 #endif
 			_retries_current = 0;
 			_ap = false;
