@@ -259,13 +259,12 @@ int EasyOTA::scanWifi(unsigned long now)
 
 						#ifdef ESP32 // Espressif Arduino API doesn't tell you about hidden networks
 						WiFi.getNetworkInfo(i, ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan);
-						if (call_scan)
-							onScan(ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan, false);
+						hidden_scan = false;
 						#else
 						WiFi.getNetworkInfo(i, ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan, hidden_scan);
+						#endif
 						if (call_scan)
 							onScan(ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan, hidden_scan);
-						#endif
 
 						bool bl = black_list.count(ssid_scan);
 						bool cap = _access_points.count(ssid_scan);
